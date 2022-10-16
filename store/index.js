@@ -6,25 +6,52 @@ export const state = () => ({
 
 export const getters = {
   getHomepage: (state) => {
-    return state.homepage
+    try {
+      return state.homepage
+    } catch(e) {
+      console.error(e);
+      return {}
+    }
+    
   },
   getUser: (state) => {
-    return {
-      name: state.homepage.name,
-      description: state.homepage.description,
-      location: state.homepage.location,
-      position: state.homepage.position,
-      startDate: state.homepage.startDate,
+    try {
+      return {
+        name: state.homepage.name,
+        description: state.homepage.description,
+        location: state.homepage.location,
+        position: state.homepage.position,
+        startDate: state.homepage.startDate,
+      }
+    } catch(e) {
+      console.error(e);
+      return {}
     }
+
   },
   getSkills: (state) => {
-    return state.homepage.skills
+    try {
+      return [...state.homepage.skills].sort((a, b) => a.sort - b.sort)
+    } catch(e) {
+      console.error(e);
+      return []
+    }
   },
   getSocials: (state) => {
-    return state.homepage.socials
+    try {
+      return [...state.homepage.socials].sort((a, b) => a.sort - b.sort)
+    } catch(e) {
+      console.error(e);
+      return []
+    }
   },
   getProjects: (state) => {
-    return state.homepage.projects
+    try {
+      return [...state.homepage.projects].sort((a, b) => a.sort - b.sort)
+    } catch(e) {
+      console.error(e);
+      return []
+    }
   },
 }
 

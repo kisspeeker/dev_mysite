@@ -1,23 +1,50 @@
 <template>
   <div class="terminal">
     <div class="container">
-      <div class="link"></div>
-      {{ getUser }}
-      <ul>
-        <li v-for="skill in getSkills" :key="skill.id">
-          <a :href="skill.href">{{ skill.name }}</a>
-        </li>
-      </ul>
-      <ul>
-        <li v-for="social in getSocials" :key="social.id">
-          <code>{{ social }}</code>
-        </li>
-      </ul>
-      <ul>
-        <li v-for="project in getProjects" :key="project.id">
-          <code>{{ project }}</code>
-        </li>
-      </ul>
+      <header class="header">
+        <div class="header-logo logo terminal-prompt">
+          <a href="/" class="link">{{ getUser.name }}</a>
+        </div>
+        <div class="header-description">
+          <span class="header-description-value">{{ getUser.location }}</span>
+        </div>
+      </header>
+
+      <div class="terminal-main"> 
+        <section class="section terminal-section--base">
+          <h2>{{ getUser.position }} [{{ experience }}]</h2>
+          <p class="terminal-main-description">{{ getUser.description }}</p>
+        </section>
+
+        <section class="section terminal-section--socials">
+          <h2>Social links</h2>
+
+          <li v-for="social in getSocials" :key="social.id">
+            <a :href="social.href" target="_blank">{{ social.name }}</a>
+          </li>
+        </section>
+
+        <section class="section terminal-section--skills">
+          <h2>Skills</h2>
+
+          <ul class="terminal-main-skills-list">
+            <li v-for="skill in getSkills" :key="skill.id" class="terminal-main-skills-list-item">
+              {{ skill.name }}
+            </li>
+          </ul>
+        </section>
+
+        <section class="section terminal-section--projects">
+          <h2>Side projects</h2>
+
+          <div class="terminal-timeline">
+            <a v-for="project in getProjects" :key="project.id" :href="project.href" target="_blank" class="terminal-card">
+              <header>{{ project.name }}</header>
+              <div>{{ project.description }}</div>
+            </a>
+          </div>
+        </section>
+      </div>
     </div>
   </div>
 </template>
@@ -33,7 +60,16 @@ export default {
       'getSkills',
       'getSocials',
       'getProjects',
-    ])
+    ]),
+    experience() {
+      const diff = (new Date() - new Date(this.getUser.startDate)) / 31536000000;
+      const years = Math.floor(diff);
+      const months = Math.floor((diff - years) * 12)
+
+      return months 
+        ? `${years} years ${months} months`
+        : `${years} years`
+    }
   }
 }
 </script>
@@ -58,5 +94,55 @@ export default {
   --code-bg-color: #3f3f44;
   --input-style: solid;
   --display-h1-decoration: none;
+  --section-offset: calc(var(--global-space) * 4);
+}
+
+.terminal {
+  padding-bottom: 40px;
+}
+
+.terminal-main-description {
+  margin-bottom: 0;
+}
+
+.section {
+  padding: 0 0 var(--section-offset);
+}
+
+.section + .section {
+  padding-top: var(--section-offset);
+  border-top: 1px dashed var(--secondary-color);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .header {
+    align-items: flex-start;
+    flex-flow: column nowrap;
+    margin-bottom: var(--section-offset);
+  }
+}
+
+.terminal-card {
+  display: block;
+  color: var(--font-color);
+}
+
+.terminal-card::before {
+  pointer-events: none;
+}
+
+.terminal-card:hover {
+  background: none;
+  color: var(--font-color);
+}
+
+.terminal-card:hover header {
+  background: var(--primary-color);
 }
 </style>
