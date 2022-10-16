@@ -49,5 +49,9 @@ export default {
   build: {},
   env: {
     apiRoot: process.env.API_ROOT || 'http://localhost:1337/api'
-  }
+  },
+  server: {
+    host: process.env.NUXT_HOST,
+    port: process.env.NUXT_PORT,
+  },
 }
