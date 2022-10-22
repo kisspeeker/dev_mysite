@@ -29,18 +29,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
-    '@nuxtjs/google-analytics'
   ],
-
-  googleAnalytics: {
-    id: process.env.GOOGLE_ANALYTICS_ID, // Use as fallback if no runtime config is provided
-    dev: process.env.NODE_ENV !== 'production'
-  },
-  publicRuntimeConfig: {
-    googleAnalytics: {
-      id: process.env.GOOGLE_ANALYTICS_ID
-    }
-  },
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [],
@@ -48,7 +37,8 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
   env: {
-    apiRoot: process.env.API_ROOT || 'http://localhost:1337/api'
+    API_ROOT: process.env.API_ROOT || 'http://localhost:1337/api',
+    GTM_ID: process.env.GTM_ID
   },
   server: {
     host: process.env.NUXT_HOST,
