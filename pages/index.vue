@@ -20,7 +20,14 @@
           <h2>Social links</h2>
 
           <li v-for="social in getSocials" :key="social.id">
-            <a :href="social.href" target="_blank">{{ social.name }}</a>
+            <a 
+              :href="social.href" 
+              target="_blank"
+              data-gtm-elements-id="thealexcode-socials" 
+              :data-gtm-social-name="social.name" 
+            >
+              {{ social.name }}
+            </a>
           </li>
         </section>
 
@@ -38,7 +45,15 @@
           <h2>Side projects</h2>
 
           <div class="terminal-timeline">
-            <a v-for="project in getProjects" :key="project.id" :href="project.href" target="_blank" class="terminal-card">
+            <a 
+              v-for="project in getProjects" 
+              :key="project.id" 
+              :href="project.href" 
+              target="_blank" 
+              class="terminal-card"
+              data-gtm-elements-id="thealexcode-projects" 
+              :data-gtm-project-name="project.name" 
+            >
               <header>{{ project.name }}</header>
               <div>{{ project.description }}</div>
             </a>
