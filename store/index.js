@@ -12,7 +12,7 @@ export const getters = {
       console.error(e);
       return {}
     }
-    
+
   },
   getUser: (state) => {
     try {
@@ -71,8 +71,8 @@ export const actions = {
       ])
       commit('setHomepage', homepage)
     } catch (e) {
+      console.error(e);
       commit('setHomepage', {})
-      throw e
     }
   }
 }
