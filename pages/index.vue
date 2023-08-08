@@ -10,21 +10,21 @@
         </div>
       </header>
 
-      <div class="terminal-main"> 
+      <div class="terminal-main">
         <section class="section terminal-section--base">
           <h2>{{ getUser.position }} [{{ experience }}]</h2>
-          <p class="terminal-main-description">{{ getUser.description }}</p>
+          <div class="terminal-main-description" v-html="getUser.description" />
         </section>
 
         <section class="section terminal-section--socials">
           <h2>Social links</h2>
 
           <li v-for="social in getSocials" :key="social.id">
-            <a 
-              :href="social.href" 
+            <a
+              :href="social.href"
               target="_blank"
-              data-gtm-elements-id="thealexcode-socials" 
-              :data-gtm-social-name="social.name" 
+              data-gtm-elements-id="thealexcode-socials"
+              :data-gtm-social-name="social.name"
             >
               {{ social.name }}
             </a>
@@ -45,14 +45,14 @@
           <h2>Side projects</h2>
 
           <div class="terminal-timeline">
-            <a 
-              v-for="project in getProjects" 
-              :key="project.id" 
-              :href="project.href" 
-              target="_blank" 
+            <a
+              v-for="project in getProjects"
+              :key="project.id"
+              :href="project.href"
+              target="_blank"
               class="terminal-card"
-              data-gtm-elements-id="thealexcode-projects" 
-              :data-gtm-project-name="project.name" 
+              data-gtm-elements-id="thealexcode-projects"
+              :data-gtm-project-name="project.name"
             >
               <header>{{ project.name }}</header>
               <div>{{ project.description }}</div>
@@ -81,7 +81,7 @@ export default {
       const years = Math.floor(diff);
       const months = Math.floor((diff - years) * 12)
 
-      return months 
+      return months
         ? `${years} years ${months} months`
         : `${years} years`
     }
