@@ -3,7 +3,7 @@ version: '3.7'
 services:
   app:
     build: .
-    image: thealexcode/mysite
+    image: dev/mysite
     container_name: nuxt-app
     restart: always
     ports:
