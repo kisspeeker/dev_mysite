@@ -20,7 +20,7 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: 22
           script: |
-            cd ~/home/${{ github.repository }}
+            cd ${{ github.repository }}
             ls -a
 
           # git pull origin master
