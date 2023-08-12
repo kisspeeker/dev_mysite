@@ -25,12 +25,7 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: 22
           script: |
-            repository_name=$(basename $GITHUB_REPOSITORY)
-            echo "github.repository: $GITHUB_REPOSITORY"
-            echo "API_ROOT: $API_ROOT"
-            echo "GTM_ID: $GTM_ID"
-            echo "repository_name: $repository_name"
-            echo "secrets.SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}"
+            repository_name=basename `git rev-parse --show-toplevel`
             cd ~/home/${{ secrets.USERNAME }}/$repository_name
             git pull origin master
             docker-compose down
