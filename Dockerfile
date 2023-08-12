@@ -1,19 +1,22 @@
-FROM node:12.16.3-alpine3.9
+FROM node:14-alpine
+
+# Установка Yarn внутри контейнера
+RUN apk update && apk add yarn
 
 RUN mkdir -p /var/www/dockerize-nuxt/nuxt-app
 WORKDIR /var/www/dockerize-nuxt/nuxt-app
 
 COPY package*.json ./
-RUN npm install
+
+RUN yarn install
 
 COPY . .
 
-RUN npm run build
+RUN yarn build
 
 EXPOSE 3000
 
 ENV NUXT_HOST=0.0.0.0
-
 ENV NUXT_PORT=3000
 
-CMD [ "npm", "start" ]
+CMD [ "yarn", "start" ]

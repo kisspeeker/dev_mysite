@@ -1,0 +1,37 @@
+echo
+
+name: Deploying ${{ github.repository }}
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      API_ROOT: ${{ env.API_ROOT }}
+      GTM_ID: ${{ env.GTM_ID }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          script: |
+            repository_name=$(basename ${{ github.repository }})
+            echo github.repository: ${{ github.repository }}
+            echo repository_name: $repository_name
+            echo secrets.SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+            # cd ~/home/${{ secrets.USERNAME }}/$repository_name
+            # git pull origin master
+            # docker-compose down
+            # docker-compose up -d --build
