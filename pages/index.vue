@@ -11,6 +11,10 @@
       </header>
 
       <div class="terminal-main">
+        <h1>lalallaa</h1>
+        <h1>lalallaa</h1>
+        <h1>lalallaa</h1>
+        <h1>lalallaa</h1>
         <section class="section terminal-section--base">
           <h2>{{ getUser.position }} [{{ experience }}]</h2>
           <div class="terminal-main-description" v-html="getUser.description" />
