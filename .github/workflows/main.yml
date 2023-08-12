@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      API_ROOT: ${{ env.API_ROOT }}
-      GTM_ID: ${{ env.GTM_ID }}
+      API_ROOT: $API_ROOT
+      GTM_ID: $GTM_ID
 
     steps:
       - name: Checkout repository
@@ -27,6 +27,8 @@ jobs:
           script: |
             repository_name=$(basename $GITHUB_REPOSITORY)
             echo "github.repository: $GITHUB_REPOSITORY"
+            echo "API_ROOT: $API_ROOT"
+            echo "GTM_ID: $GTM_ID"
             echo "repository_name: $repository_name"
             echo "secrets.SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}"
             # cd ~/home/${{ secrets.USERNAME }}/$repository_name
