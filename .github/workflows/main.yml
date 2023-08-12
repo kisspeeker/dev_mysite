@@ -1,4 +1,4 @@
-name: Deploying $GITHUB_REPOSITORY
+name: Test variables
 
 on:
   push:
@@ -6,26 +6,49 @@ on:
       - master
 
 jobs:
-  build:
+  logger-job: 
     runs-on: ubuntu-latest
-
-    env:
-      API_ROOT: $API_ROOT
-      GTM_ID: $GTM_ID
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: logger-step-1
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+      - name: logger-step-2
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
+      - name: logger-step-3
+        env:
+          API_ROOT: ${{ vars.API_ROOT }}
+          GTM_ID: ${{ vars.GTM_ID }}
+          JSON_VARS: ${{ toJson(vars) }}
+        run: |
+          echo "*** repo API_ROOT : $API_ROOT"
+          echo "*** repo GTM_ID : $GTM_ID"
+          echo "*** JSON_VARS : $JSON_VARS"
+    
 
-      - name: Deploy using ssh
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.PRIVATE_KEY }}
-          port: 22
-          script: |
-            cd ~/home/${{ secrets.USERNAME }}/$GITHUB_REPOSITORY
-            git pull origin master
-            docker-compose down
-            docker-compose up -d --build
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     env:
+#       API_ROOT: $API_ROOT
+#       GTM_ID: $GTM_ID
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v2
+
+#       - name: Deploy using ssh
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: ${{ secrets.HOST }}
+#           username: ${{ secrets.USERNAME }}
+#           key: ${{ secrets.PRIVATE_KEY }}
+#           port: 22
+#           script: |
+#             cd ~/home/${{ secrets.USERNAME }}/$GITHUB_REPOSITORY
+#             git pull origin master
+#             docker-compose down
+#             docker-compose up -d --build
