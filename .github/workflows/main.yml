@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+env:
+  JSON_VARS: ${{ toJson(vars) }}
+
 jobs:
   logger-job: 
     runs-on: ubuntu-latest
@@ -12,21 +15,11 @@ jobs:
       - name: logger-step-1
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: logger-step-2
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: logger-step-3
-        env:
-          API_ROOT: ${{ vars.API_ROOT }}
-          GTM_ID: ${{ vars.GTM_ID }}
-          JSON_VARS: ${{ toJson(vars) }}
+          REPO_NAME: ${{ toJson(split('/', github.repository)) }}
         run: |
-          echo "*** repo API_ROOT : $API_ROOT"
-          echo "*** repo GTM_ID : $GTM_ID"
-          echo "*** JSON_VARS : $JSON_VARS"
-    
+          echo "$GITHUB_CONTEXT"
+          echo "$REPO_NAME"
+
 
 # jobs:
 #   build:
