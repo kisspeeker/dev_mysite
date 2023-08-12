@@ -12,18 +12,20 @@ jobs:
   logger-job: 
     runs-on: ubuntu-latest
     steps:
-      - name: Get repository name
-        run: |
-          repo_full_name="${{ github.repository }}"
-          IFS="/" read -ra repo_parts <<< "$repo_full_name"
-          repo_name="${repo_parts[1]}"
-          echo "::set-env name=REPO_NAME::$repo_name"
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd ~/home/${{ secrets.USERNAME }}/${{ github.repository }}
+            ls -a
 
-      - name: Use repository name
-        run: |
-          repo_name=${{ env.REPO_NAME }}
-          echo "Repository Name: $repo_name"
-          echo "cd /home/${{ secrets.USERNAME }}/$repo_name"
+          # git pull origin master
+          # docker-compose down
+          # docker-compose up -d --build
 
 
 # jobs:
