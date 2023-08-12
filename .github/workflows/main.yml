@@ -25,9 +25,8 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           port: 22
           script: |
-            echo "$GITHUB_REPOSITORY"
-            # repository_name=${basename `git rev-parse --show-toplevel`}
-            # cd ~/home/${{ secrets.USERNAME }}/$repository_name
-            # git pull origin master
-            # docker-compose down
-            # docker-compose up -d --build
+            repository_name=$(echo "$GITHUB_REPOSITORY" | awk -F/ '{print $2}')
+            cd ~/home/${{ secrets.USERNAME }}/$repository_name
+            git pull origin master
+            docker-compose down
+            docker-compose up -d --build
