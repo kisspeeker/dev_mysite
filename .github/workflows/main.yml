@@ -16,17 +16,17 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.PRIVATE_KEY }}
-          allenvs: true
           port: 22
-          # echo '${{ toJson(vars) }}' > env.json
-          # json=$(cat env.json)
-          # for key in $(echo "$json" | jq -r 'keys[]'); do
-          #   value=$(echo "$json" | jq -r ".$key")
-          #   echo "Setting $key=$value"
-          #   echo "::set-env name=$key::$value"
-          # done
           script: |
             cd ${{ github.repository }}
+
+            echo '${{ toJson(vars) }}' > env.json
+            json=$(cat env.json)
+            for key in $(echo "$json" | jq -r 'keys[]'); do
+              value=$(echo "$json" | jq -r ".$key")
+              echo "$key=$value" >> .env
+            done
+
             git pull origin master
             docker-compose down
             docker-compose up -d --build
