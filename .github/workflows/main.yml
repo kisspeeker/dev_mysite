@@ -9,21 +9,21 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Create .env
-        run: |
-          url="https://google.com"
-          dir="${{ secrets.USERNAME }}"
-          echo API_ROOT="$url" >> .env
-          echo DIR="$dir" >> .env
-          env_contents=$(cat .env)
-          echo $env_contents
-          cat .env
+      # - name: Create .env
+      #   run: |
+      #     url="https://google.com"
+      #     dir="${{ secrets.USERNAME }}"
+      #     echo API_ROOT="$url" >> .env
+      #     echo DIR="$dir" >> .env
+      #     env_contents=$(cat .env)
+      #     echo $env_contents
+      #     cat .env
 
-      - name: Загрузить файл
-        uses: actions/upload-artifact@v2
-        with:
-          name: .env
-          path: .env
+      # - name: Загрузить файл
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: .env
+      #     path: .env
 
       - name: Login by SSH, git pull, Deploy by docker-compose
         uses: appleboy/ssh-action@master
@@ -34,10 +34,10 @@ jobs:
           port: 22
           script: |
             cd ${{ github.repository }}
-            env_contents=$(cat .env)
-            echo "$env_contents" > .env
-            echo $env_contents
-            cat .env
+            url="https://google.com"
+            dir="${{ secrets.USERNAME }}"
+            echo API_ROOT="$url" >> .env
+            echo DIR="$dir" >> .env
       #       git checkout master
       #       git pull
       #       docker-compose up -d --build
