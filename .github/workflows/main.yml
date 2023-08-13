@@ -11,7 +11,6 @@ jobs:
     steps:
       - name: Install jq
         run: |
-          sudo apt-get update
           sudo apt-get install -y jq
 
       - name: Login by SSH, git pull, Deploy by docker-compose
@@ -25,6 +24,7 @@ jobs:
             cd ${{ github.repository }}
 
             echo '${{ toJson(vars) }}' > env.json
+            touch .env
             json=$(cat env.json)
             for key in $(echo "$json" | jq -r 'keys[]'); do
               value=$(echo "$json" | jq -r ".$key")
