@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Set up environment variables from JSON
         run: |
-          json=$(${{ toJson(vars) }})
+          json=$("${{ toJson(vars) }}")
           for key in $(echo "$json" | jq -r 'keys[]'); do
             value=$(echo "$json" | jq -r ".$key")
             echo "Setting $key=$value"
