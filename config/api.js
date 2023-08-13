@@ -6,6 +6,7 @@ export async function fetchHomepage () {
     return await fetch(API_ROOT + '/homepage?populate=*').then(res => res.json())
   } catch (e) {
     console.error(e);
+    console.warn('*** USING FALLBACK DATA ***');
     return fallbackHomepage
   }
 }
