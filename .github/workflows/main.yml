@@ -15,7 +15,9 @@ jobs:
           dir="${{ secrets.USERNAME }}"
           echo API_ROOT="$url" >> .env
           echo DIR="$dir" >> .env
-          echo cat .env
+          env_contents=$(cat .env)
+          echo $env_contents
+          cat .env
 
       - name: Загрузить файл
         uses: actions/upload-artifact@v2
@@ -34,7 +36,8 @@ jobs:
             cd ${{ github.repository }}
             env_contents=$(cat .env)
             echo "$env_contents" > .env
-            echo cat .env
+            echo $env_contents
+            cat .env
       #       git checkout master
       #       git pull
       #       docker-compose up -d --build
