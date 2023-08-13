@@ -86,11 +86,6 @@ export default {
         : `${years} years`
     }
   },
-  mounted() {
-    console.warn(process.env);
-    console.warn(process.env.API_ROOT);
-    console.warn(process.env.GTM_ID);
-  }
 }
 </script>
 
