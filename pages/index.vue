@@ -23,7 +23,7 @@
             <a
               :href="social.href"
               target="_blank"
-              data-gtm-elements-id="thealexcode-socials"
+              data-gtm-elements-id="kisspeeker-socials"
               :data-gtm-social-name="social.name"
             >
               {{ social.name }}
@@ -51,7 +51,7 @@
               :href="project.href"
               target="_blank"
               class="terminal-card"
-              data-gtm-elements-id="thealexcode-projects"
+              data-gtm-elements-id="kisspeeker-projects"
               :data-gtm-project-name="project.name"
             >
               <header>{{ project.name }}</header>
