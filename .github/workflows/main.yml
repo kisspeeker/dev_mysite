@@ -22,10 +22,11 @@ jobs:
           script: |
             cd ${{ github.repository }}
 
+            git fetch origin master
+            git reset --hard origin/master
+
             echo API_ROOT="${{ vars.API_ROOT }}" > .env
             echo GTM_ID="${{ vars.GTM_ID }}" >> .env
 
-            git checkout master
-            git pull
             docker-compose up -d --build
 
