@@ -10,10 +10,4 @@ services:
       - '127.0.0.1:3000:80'
     command: 'npm run start'
     networks:
-      - reverse_proxy_network
-    links:
-      - dev_reverse-proxy
-
-networks:
-  reverse_proxy_network:
-    external: true
+      - network_reverse_proxy
