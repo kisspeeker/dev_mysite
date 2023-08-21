@@ -1,11 +1,17 @@
 version: '3.7'
 
 services:
-  app:
+  dev_mysite:
     build: .
     image: dev/mysite
     container_name: nuxt-app
     restart: always
     ports:
-      - '3000:3000'
+      - '127.0.0.1:3000:3000'
     command: 'npm run start'
+    networks:
+      - reverse_proxy_network
+
+networks:
+  reverse_proxy_network:
+    external: true
