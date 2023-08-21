@@ -11,8 +11,7 @@ services:
     command: 'npm run start'
     networks:
       - reverse_proxy_network
-    links:
-      - dev_reverse-proxy
 
 networks:
   reverse_proxy_network:
+    external: true
