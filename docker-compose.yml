@@ -4,7 +4,7 @@ services:
   dev_mysite:
     build: .
     image: dev/mysite
-    container_name: nuxt-app
+    container_name: dev_mysite
     restart: always
     ports:
       - '127.0.0.1:3000:3000'
